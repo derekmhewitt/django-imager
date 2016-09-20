@@ -18,9 +18,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 
+from .views import index_view
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('registration.backends.hmac.urls'))  # Note 1
+    url(r'^$', index_view),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('registration.backends.hmac.urls')),  # Note 1
 ]
 
 if settings.DEBUG:
