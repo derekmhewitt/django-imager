@@ -12,9 +12,19 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+
 #  user must set these in their local environment
 DJANGO_DB_USERNAME = os.environ.get('DJANGO_DB_USERNAME')
 DJANGO_DB_PASSWORD = os.environ.get('DJANGO_DB_PASSWORD')
+DJANGO_DB_HOST = os.environ.get('DJANGO_DB_HOST')
+DJANGO_DB_PORT = os.environ.get('DJANGO_DB_PORT')
+
+#  example of the above in the users bin/activate file:
+#  export DJANGO_DB_USERNAME="my_username"
+#  export DJANGO_DB_PASSWORD=""  <-- on linux/osx machines this can be blank
+#  export DJANGO_DB_HOST="127.0.0.1"
+#  export DJANGO_DB_PORT="5432"
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,8 +94,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': DJANGO_DB_USERNAME,
         'PASSWORD': DJANGO_DB_PASSWORD,
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'HOST': DJANGO_DB_HOST,
+        'PORT': DJANGO_DB_PORT,
     }
 }
 
