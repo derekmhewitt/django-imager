@@ -13,13 +13,14 @@ logr = logging.getLogger(__name__)
 
 @receiver(post_save, sender=User)
 def make_sure_user_profile_is_added_on_user_created(sender, **kwargs):
-    if kwargs.get('created', False):
-        up = Photographer.objects.create(user=kwargs.get('instance'))
-        # loger.debut('User_Profile created {}'.format(up))
+    """Receives a signal from...  somewhere.  Damnit"""
+    # if kwargs.get('created', False):
+    #     up = Photographer.objects.create(user=kwargs.get('instance'))
+    #     loger.debut('User_Profile created {}'.format(up))
 
 
 class PatronProfileManager(models.Manager):
-    '''returns a queryset pre-filters to only active profiles'''
+    '''returns a queryset pre-filtered to only active profiles'''
     class Meta:
         model = "PatronProfile"
 
@@ -50,6 +51,7 @@ class Photographer(models.Model):
     active = PatronProfileManager()
 
 
+@python_2_unicode_compatible
 class Address(models.Model):
     photographer_profile = models.ForeignKey(
         Photographer,
@@ -80,12 +82,14 @@ class Address(models.Model):
                                  null=True)
 
 
+@python_2_unicode_compatible
 class Equipment(models.Model):
     equipment_type = models.CharField(max_length=200, blank=True, null=True)
     make = models.CharField(max_length=200, blank=True, null=True)
     model = models.CharField(max_length=200, blank=True, null=True)
 
 
+@python_2_unicode_compatible
 class SocialMedia(models.Model):
     photographer_profile = models.ForeignKey(
         Photographer,
@@ -93,4 +97,3 @@ class SocialMedia(models.Model):
         primary_key=True,
         related_name='SocialMedia',  # TODO: look this up and set it
     )
-    # more fields
