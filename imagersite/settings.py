@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-import dj_database_url
+
+#  user must set these in their local environment
+DJANGO_DB_USERNAME = os.environ.get('DJANGO_DB_USERNAME')
+DJANGO_DB_PASSWORD = os.environ.get('DJANGO_DB_PASSWORD')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,8 +44,6 @@ INSTALLED_APPS = [
     'imager_images',
     'imager_profile',
 ]
-
-    # 'imager_images.apps.ImagerImagesConfig',
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -79,7 +80,13 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DJANGO_DB_USERNAME,
+        'PASSWORD': DJANGO_DB_PASSWORD,
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
 }
 
 
