@@ -96,3 +96,9 @@ ENV/
 .ropeproject
 
 media/*
+
+# Windows nonsense
+Scripts/
+tcl/
+Include/
+Lib/
