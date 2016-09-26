@@ -17,14 +17,16 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
-import registration
+# import registration
 
 from .views import index_view
 
 urlpatterns = [
-    url(r'^$', index_view),
+    url(r'^$', index_view, name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.hmac.urls')),  # Note 1
+    url(r'^profile/', include('imager_profile.urls')),
+    url(r'^images/', include('imager_images.urls')),
 ]
 
 if settings.DEBUG:
