@@ -11,20 +11,12 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-
 import dj_database_url
 
-#  user must set these in their local environment
-DJANGO_DB_USERNAME = os.environ.get('DJANGO_DB_USERNAME')
-DJANGO_DB_PASSWORD = os.environ.get('DJANGO_DB_PASSWORD')
-DJANGO_DB_HOST = os.environ.get('DJANGO_DB_HOST')
-DJANGO_DB_PORT = os.environ.get('DJANGO_DB_PORT')
-
+DATABASE_URL = os.environ.get('DATABASE_URL')
+#  user must set DATABASE_URL in their local environment
 #  example of the above in the users bin/activate file:
-#  export DJANGO_DB_USERNAME="my_username"
-#  export DJANGO_DB_PASSWORD=""  <-- on linux/osx machines this can be blank
-#  export DJANGO_DB_HOST="127.0.0.1"
-#  export DJANGO_DB_PORT="5432"
+#  export DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DBNAME
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -91,14 +83,7 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': DJANGO_DB_USERNAME,
-    #     'PASSWORD': DJANGO_DB_PASSWORD,
-    #     'HOST': DJANGO_DB_HOST,
-    #     'PORT': DJANGO_DB_PORT,
-    # }
-    'default': dj_database_url.config(default="postgres://myname:mypass@myhost:5432/mydbname")
+    'default': dj_database_url.parse(DATABASE_URL)
 }
 
 
