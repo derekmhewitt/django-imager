@@ -8,3 +8,5 @@ def index_view(request):
     # import pdb; pdb.set_trace();
     response_body = template.render()
     return HttpResponse(response_body)
+
+    # return render(request, 'template/path/here')

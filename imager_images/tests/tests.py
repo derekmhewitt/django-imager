@@ -11,6 +11,9 @@ class PhotoTestCase(TestCase):
     def test_babys_first_test(self):
         assert 1 == 1
 
+    def tearDown(self):
+        pass
+
 """
 OK, so I had a conversation with Cris about testing.  First of all, I'm going to go after our models with a buzzsaw and cut out just about everything that isn't explicitely required as part of the assignment.  Additional things to do:
 - create factory.py in each tests directory, our factories live there

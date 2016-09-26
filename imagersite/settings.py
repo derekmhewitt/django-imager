@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+import dj_database_url
 
 #  user must set these in their local environment
 DJANGO_DB_USERNAME = os.environ.get('DJANGO_DB_USERNAME')
@@ -90,13 +91,14 @@ WSGI_APPLICATION = 'imagersite.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DJANGO_DB_USERNAME,
-        'PASSWORD': DJANGO_DB_PASSWORD,
-        'HOST': DJANGO_DB_HOST,
-        'PORT': DJANGO_DB_PORT,
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': DJANGO_DB_USERNAME,
+    #     'PASSWORD': DJANGO_DB_PASSWORD,
+    #     'HOST': DJANGO_DB_HOST,
+    #     'PORT': DJANGO_DB_PORT,
+    # }
+    'default': dj_database_url.config(default="postgres://myname:mypass@myhost:5432/mydbname")
 }
 
 
