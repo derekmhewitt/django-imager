@@ -23,7 +23,6 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-<<<<<<< HEAD
 lib64
 bin/
 pip-selfcheck.json
