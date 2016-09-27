@@ -4,7 +4,7 @@ from django.template import loader
 
 
 def index_view(request):
-    template = loader.get_template('imagersite/base.html')
+    template = loader.get_template('imagersite/home.html')
     # import pdb; pdb.set_trace();
     response_body = template.render()
     return HttpResponse(response_body)
