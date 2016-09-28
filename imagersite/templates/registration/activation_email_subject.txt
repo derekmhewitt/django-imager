@@ -1,1 +1,1 @@
-Imagersite Registration Link Inside
+{{ user }} Here's Your Imagersite Registration Link

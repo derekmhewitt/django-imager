@@ -1,3 +1,3 @@
-This email contains your activation link.  You've got 7 days to click it.
+{{ user }} this email contains your activation link.  You've got {{ expiration_days }} days to click it.
 
-[link should probably go here]
+http://{{ site.domain }}{% url 'registration_activate' activation_key=activation_key %}

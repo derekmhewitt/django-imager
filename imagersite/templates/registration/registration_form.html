@@ -1,14 +1,10 @@
 {% extends "imagersite/layout.html" %}
 {% block content %}
     <p>Register for a new account here.</p>
-    <form>
-    <!-- Here we should import the form from the model element-->
-
-    <!-- <input type="text" name="username"></input>
-    <input type="text" name="email"></input>
-    <input type="password" name="password1"></input>
-    <input type="password" name="password2"></input>
-    <button type="submit" value="register"></button> -->
-
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="register">
+    </form>
     </form>
 {% endblock %}
