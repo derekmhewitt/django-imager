@@ -43,7 +43,7 @@ class Photo(models.Model):
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),
                                           ('public', 'public')])
-    likes_cheese = models.BooleanField('Likes Cheese!', default=False)
+    is_public = models.BooleanField('Is_public?', default=False)
 
     def __str__(self):
         '''this is a  doc string'''
