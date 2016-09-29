@@ -18,6 +18,7 @@ def make_sure_user_profile_is_added_on_user_created(sender, **kwargs):
         Photographer.objects.create(user=kwargs.get('instance'))
 
 
+@python_2_unicode_compatible
 class PatronProfileManager(models.Manager):
     '''returns a queryset pre-filtered to only active profiles'''
     class Meta:

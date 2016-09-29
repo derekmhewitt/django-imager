@@ -12,6 +12,7 @@ def user_directory_path(instance, filename):
     return 'user_{0}/%Y%m%d/{1}'.format(instance.user.id, filename)
 
 
+@python_2_unicode_compatible
 class Photo(models.Model):
     '''A Photo belonging to a usr'''
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
@@ -46,13 +47,14 @@ class Photo(models.Model):
     is_public = models.BooleanField('Is_public?', default=False)
 
     def __str__(self):
-        '''this is a  doc string'''
-        return self.image_file
+        '''Method returns a string we can use to ID this model instance.'''
+        return str(self.file)
 
     class Meta:
         ordering = ('date_created',)
 
 
+@python_2_unicode_compatible
 class Album(models.Model):
     '''An Album of Photos'''
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
