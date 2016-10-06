@@ -5,11 +5,14 @@
     <p><a href="{% url 'photo_create' %}">Add a new Photo.</a></p>
     <p><a href="{% url 'album_create' %}">Add a new Album.</a></p>
     <h2>Albums:</h2>
+    12
     {% for album in all_albums %}
+        7
         {% include 'imager_images/single_album.html' %}
     {% endfor %}
     <h2>Photos:</h2>
     {% for photo in all_photos %}
+        9
         {% include 'imager_images/single_photo.html' %}
     {% endfor %}
 {% endblock %}

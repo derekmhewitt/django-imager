@@ -6,5 +6,5 @@
         {{ form.as_p }}
         <input type="submit" value="Update"/>
     </form>
-    <a href="{% url 'photo_delete' %}">Click here to delete this photo.</a>
+    <a href="{% url 'photo_delete' photo.pk %}">Click here to delete this photo.</a>
 {% endblock %}

@@ -1,15 +1,15 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView
 from .models import Photo, Album
-from django.http import request
 
-from .views import PHOTO_FORM_FIELDS, ALBUM_FORM_FIELDS, PhotoCreate
+from .views import PHOTO_FORM_FIELDS, ALBUM_FORM_FIELDS
+from .views import PhotoCreate, AlbumCreate, LibraryView
+from django.urls import reverse_lazy
 
 urlpatterns = [
     url(r'^$',
-        login_required(TemplateView.as_view(
+        login_required(LibraryView.as_view(
             template_name="imager_images/library.html")),
         name='my_library'),
     url(r'^photo/create/$',
@@ -19,28 +19,29 @@ urlpatterns = [
         login_required(UpdateView.as_view(
             template_name="imager_images/photo_edit.html",
             model=Photo,
-            fields=PHOTO_FORM_FIELDS)),
+            fields=PHOTO_FORM_FIELDS,
+            success_url=reverse_lazy('my_library'))),
         name='photo_edit'),
     url(r'^photo/delete/(?P<pk>[0-9]+)/$',
         login_required(DeleteView.as_view(
             template_name="imager_images/photo_delete.html",
-            model=Photo)),
+            model=Photo,
+            success_url=reverse_lazy('my_library'))),
         name='photo_delete'),
     url(r'^album/create/$',
-        login_required(CreateView.as_view(
-            template_name="imager_images/album_create.html",
-            model=Album,
-            fields=ALBUM_FORM_FIELDS)),
+        login_required(AlbumCreate.as_view()),
         name='album_create'),
     url(r'^album/edit/(?P<pk>[0-9]+)/$',
         login_required(UpdateView.as_view(
             template_name="imager_images/album_edit.html",
             model=Album,
-            fields=ALBUM_FORM_FIELDS)),
+            fields=ALBUM_FORM_FIELDS,
+            success_url=reverse_lazy('my_library'))),
         name='album_edit'),
     url(r'^album/delete/(?P<pk>[0-9]+)/$',
         login_required(DeleteView.as_view(
             template_name="imager_images/album_delete.html",
-            model=Album)),
+            model=Album,
+            success_url=reverse_lazy('my_library'))),
         name='album_delete'),
 ]
