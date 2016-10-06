@@ -11,3 +11,7 @@ class LibraryView(TemplateView):
         context['all_albums'] = Album.objects.all().filter(user=current_user)
         context['all_photos'] = Photo.objects.all().filter(user=current_user)
         return context
+
+class PhotoCreate(CreateView):
+    model = Photo
+    fields = ['name']

@@ -1,4 +1,10 @@
 {% extends "imagersite/layout.html" %}
 {% block content %}
-<p>edit photos here</p>
+    <p>Update a Photo</p>
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update"/>
+    </form>
+    <a href="{% url 'photo_delete' %}">Click here to delete this photo.</a>
 {% endblock %}

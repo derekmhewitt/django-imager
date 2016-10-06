@@ -4,6 +4,8 @@
 
 <p>Here you'll see all of your albums and photos.  Oh joy!</p>
 
+<a href="{% url 'photo_create' %}">Add a new photo.</a>
+
 Albums:
 {% for album in all_albums %}
     {% include 'imager_images/single_album.html' %}

@@ -1,4 +1,9 @@
 {% extends "imagersite/layout.html" %}
 {% block content %}
-<p>delete photos here</p>
+    <p>Delete Photo</p>
+    <form action="." method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <input type="submit" value="Confirm"/>
+    </form>
 {% endblock %}
