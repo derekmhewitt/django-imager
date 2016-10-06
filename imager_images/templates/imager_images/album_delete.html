@@ -1,6 +1,6 @@
 {% extends "imagersite/layout.html" %}
 {% block content %}
-    <p>Delete Photo</p>
+    <p>Delete Album</p>
     <form action="." method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <p>Are you sure you want to delete "{{ object }}"?</p>

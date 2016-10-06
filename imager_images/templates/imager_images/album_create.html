@@ -1,9 +1,9 @@
 {% extends "imagersite/layout.html" %}
 {% block content %}
-    <p>Delete Photo</p>
+    <p>Add new Album</p>
     <form action="." method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <p>Are you sure you want to delete "{{ object }}"?</p>
-        <input type="submit" value="Confirm"/>
+        {{ form.as_p }}
+        <input type="submit" value="Save"/>
     </form>
 {% endblock %}
