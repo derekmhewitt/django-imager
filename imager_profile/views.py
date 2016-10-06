@@ -6,7 +6,6 @@ class ProfileView(TemplateView):
     template_name = 'imager_profile/profile_view.html'
 
     def get_context_data(self, **kwargs):
-        # import pdb; pdb.set_trace()
         current_user = self.request.user
         context = super(ProfileView, self).get_context_data(**kwargs)
         context['num_albums'] = len(Album.objects.all().filter(user=current_user))
