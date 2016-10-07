@@ -50,6 +50,13 @@ class PhotoCreate(CreateView):
         form.instance.user = self.request.user
         return super(PhotoCreate, self).form_valid(form)
 
+    # def get_context_data(self, **kwargs):
+    #     context = super(PhotoCreate, self).get_context_data(**kwargs)
+    #     if self.request.POST:
+    #         context['form'] = self.request.POST, self.request.FILES
+    #     # import pdb; pdb.set_trace()
+    #     return context
+
 
 class AlbumCreate(CreateView):
     template_name = "imager_images/album_create.html"
