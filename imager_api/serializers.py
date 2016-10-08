@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from imager_images import Photo
 
+LANGUAGE_CHOICES = 'python'
+STYLE_CHOICES = 'friendly'
+
 
 class PhotoSerializer(serializers.Serializer):
     pk = serializers.IntegerField(read_only=True)
