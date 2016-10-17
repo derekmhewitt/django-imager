@@ -1,5 +1,6 @@
 {% block content %}
-    {{ album.title }}
-    {{ album.description }}
-    <img src="{{ album.cover_photo }}"></img>
+    <p>{{ album.title }}</p>
+    <p>{{ album.description }}</p>
+    <img src="{{ album.cover_photo.url }}"></img>
+    <p><a href="{% url 'album_edit' album.pk %}">Edit your Album</a></p>
 {% endblock %}

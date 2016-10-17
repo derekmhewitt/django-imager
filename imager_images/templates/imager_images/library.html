@@ -1,17 +1,15 @@
 {% extends "imagersite/layout.html" %}
 {% block content %}
-<h1>This is your library view {{ user.username }}</h1>
-
-<p>Here you'll see all of your albums and photos.  Oh joy!</p>
-
-Albums:
-{% for album in all_albums %}
-    {% include 'imager_images/single_album.html' %}
-{% endfor %}
-
-Photos:
-{% for photo in all_photos %}
-    {% include 'imager_images/single_photo.html' %}
-{% endfor %}
-
+    <h1>This is your library view {{ user.username }}</h1>
+    <p>Here you'll see all of your albums and photos.  Oh joy!</p>
+    <p><a href="{% url 'photo_create' %}">Add a new Photo.</a></p>
+    <p><a href="{% url 'album_create' %}">Add a new Album.</a></p>
+    <h2>Albums:</h2>
+    {% for album in all_albums %}
+        {% include 'imager_images/single_album.html' %}
+    {% endfor %}
+    <h2>Photos:</h2>
+    {% for photo in all_photos %}
+        {% include 'imager_images/single_photo.html' %}
+    {% endfor %}
 {% endblock %}
