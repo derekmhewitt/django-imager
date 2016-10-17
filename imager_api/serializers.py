@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from imager_images.models import Photo
+from imager_images.models import Photo, Album
 from django.contrib.auth.models import User
 
 
-class PhotoSerializer(serializers.Serializer):
+class PhotoSerializer(serializers.HyperlinkedModelSerializer):
     """Serialize some photos"""
     class Meta:
         model = Photo
@@ -24,10 +24,15 @@ class PhotoSerializer(serializers.Serializer):
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     """Serialize some users"""
-    photos = serializers.HyperlinkedRelatedField(
-        many=True, view_name='photo_detail', read_only=True
-    )
 
     class Meta:
         model = User
-        fields = ('url', 'pk', 'username', 'photos')
+        fields = ('url', 'pk', 'username')
+
+
+class AlbumSerializer(serializers.HyperlinkedModelSerializer):
+    """Serialize some albums woo"""
+    class Meta:
+        model = Album
+        fields = ('url', 'user', 'title', 'description', 'cover_photo',
+                  'date_created', 'date_modified', 'published', 'photos')
