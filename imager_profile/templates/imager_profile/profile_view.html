@@ -1,5 +1,17 @@
-<h1>THIS is the profile view</h1>
+{% extends "imagersite/layout.html" %}
+{% block content %}
+<h1>This is your profile view {{ user.username }}</h1>
 
-user's username: {{ user.username }}
+<p>Welcome, we hope you'll stay a while.</p>
 
-user's first name: {{ user.first_name }}
+Number of Albums: {{ num_albums }}
+{% for album in five_albums %}
+    {% include 'imager_images/single_album.html' %}
+{% endfor %}
+
+Number of Photos: {{ num_photos }}
+{% for photo in five_photos %}
+    {% include 'imager_images/single_photo.html' %}
+{% endfor %}
+
+{% endblock %}
