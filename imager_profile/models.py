@@ -13,29 +13,30 @@ logr = logging.getLogger(__name__)
 
 @receiver(post_save, sender=User)
 def make_sure_user_profile_is_added_on_user_created(sender, **kwargs):
-    """Receives a signal from...  somewhere.  Damnit"""
+    """Receives a signal from user creation and makes a profile."""
     if kwargs.get('created', False):
         Photographer.objects.create(user=kwargs.get('instance'))
 
 
 @python_2_unicode_compatible
-class PatronProfileManager(models.Manager):
+class PhotographerProfileManager(models.Manager):
     '''returns a queryset pre-filtered to only active profiles'''
     class Meta:
-        model = "PatronProfile"
+        model = "Photographer"
 
     def get_queryset(self):
-        qs = super(PatronProfileManager, self).get_queryset()
-        return qs.filter(user__is_active=True)
+        return User.objects.filter(is_active=True)
 
 
 @python_2_unicode_compatible
 class Photographer(models.Model):
+    """Photographer fulfills the 'user profile' role for us"""
     user_uuid = models.UUIDField(primary_key=True,
                                  default=uuid.uuid4,
                                  editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE)
+                                on_delete=models.CASCADE,
+                                related_name="photographer")
     has_portfolios = models.BooleanField(default=False)
     portfolio_url = models.CharField(max_length=255, blank=True)
 
@@ -48,7 +49,7 @@ class Photographer(models.Model):
         return self.user.is_active
 
     objects = models.Manager()
-    active = PatronProfileManager()
+    active = PhotographerProfileManager()
 
 
 @python_2_unicode_compatible
