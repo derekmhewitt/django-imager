@@ -77,10 +77,3 @@ class Address(models.Model):
                                  max_length=7,
                                  blank=True,
                                  default='',)
-
-
-@python_2_unicode_compatible
-class Equipment(models.Model):
-    equipment_type = models.CharField(max_length=200, blank=True, null=True)
-    make = models.CharField(max_length=200, blank=True, null=True)
-    model = models.CharField(max_length=200, blank=True, null=True)
