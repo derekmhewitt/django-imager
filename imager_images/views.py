@@ -36,7 +36,6 @@ class LibraryView(TemplateView):
         context = super(LibraryView, self).get_context_data(**kwargs)
         context['all_albums'] = Album.objects.all().filter(user=current_user)
         context['all_photos'] = Photo.objects.all().filter(user=current_user)
-        # import pdb; pdb.set_trace()
         return context
 
 
@@ -49,13 +48,6 @@ class PhotoCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(PhotoCreate, self).form_valid(form)
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(PhotoCreate, self).get_context_data(**kwargs)
-    #     if self.request.POST:
-    #         context['form'] = self.request.POST, self.request.FILES
-    #     # import pdb; pdb.set_trace()
-    #     return context
 
 
 class AlbumCreate(CreateView):

@@ -1,0 +1,8 @@
+{% extends "imagersite/layout.html" %}
+{% block content %}
+    <p>Photo Title: {{ photo.title }}</p>
+    <p>Albums: {{ photo.albums}}</p>
+    {% if photo %}
+        {% include 'imager_images/single_photo.html' %}
+    {% endif %}
+{% endblock %}

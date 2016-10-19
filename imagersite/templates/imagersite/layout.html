@@ -44,6 +44,9 @@
                     </li>
                     {% if request.user.is_authenticated %}
                     <li>
+                        <a href="{% url 'profile_view' %}">Profile View</a>
+                    </li>
+                    <li>
                         <a href="{% url 'my_library' %}">My Library</a>
                     </li>
                     <li>
