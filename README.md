@@ -1,8 +1,12 @@
 # django-imager
 Django Image Gallery Web App
 
-## front-end-1
-Initial work on views, hooking up django-registration and creating base templates.
+## front-end-#
+Lots of work laying out the front end of the application and testing it.
+
+### Cited Sources:
+I worked extensively with David Banks (who was initially my parner) and used his work as an example:
+https://github.com/crashtack/django-imager
 
 ## models
 Initial work laying out data models for our Django app.
