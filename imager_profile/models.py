@@ -56,7 +56,8 @@ class Photographer(models.Model):
 class Address(models.Model):
     photographer = models.ForeignKey(
         Photographer,
-        on_delete=models.CASCADE,)
+        on_delete=models.CASCADE,
+        related_name="address",)
     default = models.BooleanField('Default Address', default=False)
     address_1 = models.CharField('Street Address 1',
                                  max_length=255,
