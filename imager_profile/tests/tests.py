@@ -66,11 +66,43 @@ class TestPhotographerModel(TestCase):
 
 class TestAddressModel(TestCase):
     """Create test class for address model."""
-    pass
+
+    def setUp(self):
+        """set up fake stuff for testing"""
+        self.user = User(username='test_user')
+        self.user.set_password('test_password')
+        self.user.save()
+        address = Address(photographer=self.user.photographer, default=True,
+                          address_1="1234 Baker Way", address_2="Appt #7",
+                          city="Seattle", state="WA", post_code="98101")
+        address.save()
+
+    def tearDown(self):
+        """tear down fake testing stuff"""
+        del self.user
+
+    def test_address_model_creation(self):
+        """verify that address models are created properly"""
+        address = Address(photographer=self.user.photographer, default=False,
+                          address_1="4321 Walker Way", address_2="Appt #5",
+                          city="Tacoma", state="OR", post_code="98102")
+        address.save()
+        self.assertTrue(len(self.user.photographer.address.all()), 2)
+
+    def test_address_model_fields(self):
+        """verify data in address model fields is recorded properly"""
+        address = self.user.photographer.address.filter(default=True).first()
+        self.assertTrue(address.address_1, "1234 Baker Way")
+
+    def test_address_model_belongs_to_user(self):
+        """verify that model belongs to correct user"""
+        address = self.user.photographer.address.filter(default=True).first()
+        self.assertEqual(address.photographer, self.user.photographer)
 
 
 class TestPhotographerProfileManager(TestCase):
     """Create a test class for photographer profile manager"""
+
     def setUp(self):
         """set up fake stuff for testing"""
         self.user = User(username='test_user')
