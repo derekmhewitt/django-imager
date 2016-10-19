@@ -18,8 +18,10 @@ def user_directory_path(instance, filename):
 class Photo(models.Model):
     '''A Photo belonging to a usr'''
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
-    albums = models.ManyToManyField('Album', blank=True)
+                             on_delete=models.CASCADE,
+                             related_name='photos')
+    albums = models.ManyToManyField('Album', blank=True,
+                                    related_name='photos')
     file = models.ImageField(upload_to=user_directory_path,
                              height_field=None,
                              width_field=None, max_length=100)
@@ -54,7 +56,8 @@ class Photo(models.Model):
 class Album(models.Model):
     '''An Album of Photos'''
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.CASCADE)
+                             on_delete=models.CASCADE,
+                             related_name='albums')
     title = models.CharField("Title", max_length=255, blank=True)
     description = models.CharField("Description", max_length=255, blank=True)
     cover_photo = models.ImageField("Cover Photo",
