@@ -26,16 +26,16 @@ class Photo(models.Model):
                              height_field=None,
                              width_field=None, max_length=100)
     title = models.CharField("Title", max_length=255, blank=True)
-    height_field = models.IntegerField("Height", blank=True)
-    width_field = models.IntegerField("Width", blank=True)
-    latitude = models.IntegerField("Latitude", blank=True)
-    longitude = models.IntegerField("Longitude", blank=True)
-    camera = models.CharField("Camera", max_length=64, blank=True)
-    lens = models.CharField("Lens", max_length=64, blank=True)
-    focal_length = models.CharField("Focal Length", max_length=32, blank=True)
-    shutter_speed = models.IntegerField("Shutter Speed", blank=True)
-    aperture = models.CharField("Aperture", max_length=64, blank=True)
-    description = models.CharField("Description", max_length=255, blank=True)
+    height_field = models.IntegerField("Height", blank=True, default='0')
+    width_field = models.IntegerField("Width", blank=True, default='0')
+    latitude = models.IntegerField("Latitude", blank=True, default='0')
+    longitude = models.IntegerField("Longitude", blank=True, default='0')
+    camera = models.CharField("Camera", max_length=64, blank=True, default='')
+    lens = models.CharField("Lens", max_length=64, blank=True, default='')
+    focal_length = models.CharField("Focal Length", max_length=32, blank=True, default='')
+    shutter_speed = models.IntegerField("Shutter Speed", blank=True, default='0')
+    aperture = models.CharField("Aperture", max_length=64, blank=True, default='')
+    description = models.CharField("Description", max_length=255, blank=True, default='')
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
     published = models.CharField(max_length=64,
@@ -59,7 +59,7 @@ class Album(models.Model):
                              on_delete=models.CASCADE,
                              related_name='albums')
     title = models.CharField("Title", max_length=255, blank=True)
-    description = models.CharField("Description", max_length=255, blank=True)
+    description = models.CharField("Description", max_length=255, blank=True, default='')
     cover_photo = models.ImageField("Cover Photo",
                                     upload_to=user_directory_path,
                                     height_field=None,
