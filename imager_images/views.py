@@ -65,9 +65,7 @@ class AlbumView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
         album = self.object
-        album_photos = Photo.objects.all().filter(albums=album)
-        photo_paginator = Paginator(
-            Photo.objects.all().filter(albums=album), 4)
+        photo_paginator = Paginator(album.photos.all(), 4)
         page_photo = self.request.GET.get('page_photo')
         try:
             album_photos = photo_paginator.page(page_photo)

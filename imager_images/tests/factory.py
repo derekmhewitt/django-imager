@@ -6,6 +6,10 @@ from imager_profile.tests.factory import UserFactory
 
 fake = FakerFactory.create()
 
+# remember the difference between PhotoFactory.create() and .build() <--
+# this lets us test that properties instantiate properly when we save
+# things manually inside our tests.
+
 
 class PhotoFactory(factory.django.DjangoModelFactory):
     """creates fake photo models for testing purposes"""
