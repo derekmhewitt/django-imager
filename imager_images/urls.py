@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic import DetailView
 from .models import Photo, Album
 
 from .views import PHOTO_FORM_FIELDS, ALBUM_FORM_FIELDS
@@ -44,4 +45,14 @@ urlpatterns = [
             model=Album,
             success_url=reverse_lazy('my_library'))),
         name='album_delete'),
+    url(r'album/(?P<pk>[0-9]+)/$',
+        login_required(DetailView.as_view(
+            template_name="imager_images/album_view.html",
+            model=Album,)),
+        name='album_view'),
+    url(r'photos/(?P<pk>[0-9]+)/$',
+        login_required(DetailView.as_view(
+            template_name="imager_images/photo_view.html",
+            model=Photo,)),
+        name='photo_view'),
 ]
