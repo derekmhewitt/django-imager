@@ -2,7 +2,7 @@
 {% block content %}
     <p>Album Title: {{ album.title }}</p>
     <p>Album Description: {{ album.description }}</p>
-    {% for photo in all_photos %}
+    {% for photo in album.photos.all %}
         {% include 'imager_images/single_photo.html' %}
     {% endfor %}
 {% endblock %}

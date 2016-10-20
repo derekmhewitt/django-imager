@@ -1,5 +1,9 @@
 {% block content %}
-    <p>Title: {{ photo.tile}}</p>
-    <a href="{% url 'photo_view' photo.pk %}"><img src="{{ photo.file.url }}"></img></a>
-    <p><a href="{% url 'photo_edit' photo.pk %}">Edit your Photo</a></p>
+    <div class='col-sm-6 col-md-4'>
+        {% if photo.title %}
+            <p>Title: {{ photo.title }}</p>
+        {% endif %}
+        <a href="{% url 'photo_view' photo.pk %}"><img src="{{ photo.file.url }}" height="150"></img></a>
+        <p><a href="{% url 'photo_edit' photo.pk %}">Edit this Photo</a></p>
+    </div>
 {% endblock %}
