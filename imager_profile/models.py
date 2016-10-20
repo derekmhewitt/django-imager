@@ -21,11 +21,12 @@ def make_sure_user_profile_is_added_on_user_created(sender, **kwargs):
 @python_2_unicode_compatible
 class PhotographerProfileManager(models.Manager):
     '''returns a queryset pre-filtered to only active profiles'''
-    class Meta:
-        model = "Photographer"
+    # class Meta:
+    #     model = "Photographer"
 
     def get_queryset(self):
-        return User.objects.filter(is_active=True)
+        queryset = super(PhotographerProfileManager, self).get_queryset()
+        return queryset.filter(user__is_active=True)
 
 
 @python_2_unicode_compatible

@@ -5,7 +5,7 @@ from django.views.generic import DetailView
 from .models import Photo, Album
 
 from .views import PHOTO_FORM_FIELDS, ALBUM_FORM_FIELDS
-from .views import PhotoCreate, AlbumCreate, LibraryView
+from .views import PhotoCreate, AlbumCreate, LibraryView, AlbumView
 from django.urls import reverse_lazy
 
 urlpatterns = [
@@ -46,9 +46,9 @@ urlpatterns = [
             success_url=reverse_lazy('my_library'))),
         name='album_delete'),
     url(r'album/(?P<pk>[0-9]+)/$',
-        login_required(DetailView.as_view(
-            template_name="imager_images/album_view.html",
-            model=Album,)),
+        login_required(AlbumView.as_view(
+            model=Album,
+            context_object_name='album')),
         name='album_view'),
     url(r'photos/(?P<pk>[0-9]+)/$',
         login_required(DetailView.as_view(

@@ -10,10 +10,36 @@
             {% include 'imager_images/single_album.html' %}
         {% endfor %}
     </div>
+    <div class="row pagination">
+        <span class="step-links">
+            {% if all_albums.has_previous %}
+                <a href="?page_album={{ all_albums.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ all_albums.number }} of {{ all_albums.paginator.num_pages }}
+            </span>
+            {% if all_albums.has_next %}
+                <a href="?page_album={{ all_albums.next_page_number }}">Next</a>
+            {% endif %}
+        </span>
+    </div>
     <h2>Photos:</h2>
     <div class="row">
         {% for photo in all_photos %}
             {% include 'imager_images/single_photo.html' %}
         {% endfor %}
+    </div>
+    <div class="row pagination">
+        <span class="step-links">
+            {% if all_photos.has_previous %}
+                <a href="?page_photo={{ all_photos.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ all_photos.number }} of {{ all_photos.paginator.num_pages }}
+            </span>
+            {% if all_photos.has_next %}
+                <a href="?page_photo={{ all_photos.next_page_number }}">Next</a>
+            {% endif %}
+        </span>
     </div>
 {% endblock %}

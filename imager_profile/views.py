@@ -9,7 +9,7 @@ class ProfileView(TemplateView):
         current_user = self.request.user
         context = super(ProfileView, self).get_context_data(**kwargs)
         context['num_albums'] = len(Album.objects.all().filter(user=current_user))
-        context['five_albums'] = Album.objects.all().filter(user=current_user)[:5]
+        context['four_albums'] = Album.objects.all().filter(user=current_user)[:4]
         context['num_photos'] = len(Photo.objects.all().filter(user=current_user))
-        context['five_photos'] = Photo.objects.all().filter(user=current_user)[:5]
+        context['four_photos'] = Photo.objects.all().filter(user=current_user)[:4]
         return context
