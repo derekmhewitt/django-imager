@@ -1,0 +1,23 @@
+{% extends "imagersite/layout.html" %}
+{% block content %}
+    <p>Album Title: {{ album.title }}</p>
+    <p>Album Description: {{ album.description }}</p>
+    <div class="row">
+    {% for photo in album_photos %}
+        {% include 'imager_images/single_photo.html' %}
+    {% endfor %}
+    </div>
+    <div class="row pagination">
+        <span class="step-links">
+            {% if album_photos.has_previous %}
+                <a href="?page_photo={{ album_photos.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ album_photos.number }} of {{ album_photos.paginator.num_pages }}
+            </span>
+            {% if album_photos.has_next %}
+                <a href="?page_photo={{ album_photos.next_page_number }}">Next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "imagersite/layout.html" %}
+{% block content %}
+    <h1>This is your profile view {{ user.username }}</h1>
+    <p>Welcome, we hope you'll stay a while.  Have some cake :).</p>
+    <div class="row">
+        <p>Number of Albums: {{ num_albums }}</p>
+        {% for album in four_albums %}
+            {% include 'imager_images/single_album.html' %}
+        {% endfor %}
+    </div>
+    <div class="row">
+        <p>Number of Photos: {{ num_photos }}</p>
+        {% for photo in four_photos %}
+            {% include 'imager_images/single_photo.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}

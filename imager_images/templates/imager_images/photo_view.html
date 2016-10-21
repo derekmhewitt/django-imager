@@ -1,0 +1,9 @@
+{% extends "imagersite/layout.html" %}
+{% block content %}
+    {% for album in photo.albums.all %}
+        {% if album.title %}
+            <p>Album: {{ album.title }}</p>
+        {% endif %}
+    {% endfor %}
+    {% include 'imager_images/single_photo.html' %}
+{% endblock %}
