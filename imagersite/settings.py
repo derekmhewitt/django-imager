@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'imager_images',
     'imager_profile',
     'rest_framework',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,9 @@ LOGIN_REDIRECT_URL = 'profile_view'
 REST_FRAMEWORK = {
     'PAGE_SIZE': 4
 }
+
+# django taggit settings
+TAGGIT_CASE_INSENSITIVE = True
 
 # email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

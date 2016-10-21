@@ -21,6 +21,7 @@ PHOTO_FORM_FIELDS = [
     'published',
     'is_public',
     'albums',
+    'tags',
 ]
 ALBUM_FORM_FIELDS = [
     'title',
@@ -98,3 +99,16 @@ class AlbumCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(AlbumCreate, self).form_valid(form)
+
+
+class TagView(DetailView):
+    template_name = 'imager_images/tag.html'
+    model = Photo
+    pk_url_kwarg = "tag"
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        tag = self.object
+        context['tag'] = tag
+        context['photos'] = photos
+        return context

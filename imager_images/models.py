@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
 from datetime import datetime
+from taggit.managers import TaggableManager
 
 
 def user_directory_path(instance, filename):
@@ -43,6 +44,7 @@ class Photo(models.Model):
                                           ('shared', 'shared'),
                                           ('public', 'public')])
     is_public = models.BooleanField('Is_public?', default=False)
+    tags = TaggableManager()
 
     def __str__(self):
         '''Method returns a string we can use to ID this model instance.'''

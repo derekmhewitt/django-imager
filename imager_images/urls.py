@@ -5,7 +5,7 @@ from django.views.generic import DetailView
 from .models import Photo, Album
 
 from .views import PHOTO_FORM_FIELDS, ALBUM_FORM_FIELDS
-from .views import PhotoCreate, AlbumCreate, LibraryView, AlbumView
+from .views import PhotoCreate, AlbumCreate, LibraryView, AlbumView, TagView
 from django.urls import reverse_lazy
 
 urlpatterns = [
@@ -55,4 +55,7 @@ urlpatterns = [
             template_name="imager_images/photo_view.html",
             model=Photo,)),
         name='photo_view'),
+    url(r'tags/(?P<tag>.+)/$',
+        login_required(TagView.as_view()),
+        name="tag_view"),
 ]
