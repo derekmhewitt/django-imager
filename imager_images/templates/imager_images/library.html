@@ -13,13 +13,13 @@
     <div class="row pagination">
         <span class="step-links">
             {% if all_albums.has_previous %}
-                <a href="?page_album={{ all_albums.previous_page_number }}">Previous</a>
+                <a href="?page_album={{ all_albums.previous_page_number }}&page_photo={{ all_photos.number }}">Previous</a>
             {% endif %}
             <span class="current">
                 Page {{ all_albums.number }} of {{ all_albums.paginator.num_pages }}
             </span>
             {% if all_albums.has_next %}
-                <a href="?page_album={{ all_albums.next_page_number }}">Next</a>
+                <a href="?page_album={{ all_albums.next_page_number }}&page_photo={{ all_photos.number }}">Next</a>
             {% endif %}
         </span>
     </div>
@@ -32,13 +32,13 @@
     <div class="row pagination">
         <span class="step-links">
             {% if all_photos.has_previous %}
-                <a href="?page_photo={{ all_photos.previous_page_number }}">Previous</a>
+                <a href="?page_photo={{ all_photos.previous_page_number }}&page_album={{ all_albums.number }}">Previous</a>
             {% endif %}
             <span class="current">
                 Page {{ all_photos.number }} of {{ all_photos.paginator.num_pages }}
             </span>
             {% if all_photos.has_next %}
-                <a href="?page_photo={{ all_photos.next_page_number }}">Next</a>
+                <a href="?page_photo={{ all_photos.next_page_number }}&page_album={{ all_albums.number }}">Next</a>
             {% endif %}
         </span>
     </div>

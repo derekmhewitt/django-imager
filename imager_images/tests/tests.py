@@ -154,6 +154,18 @@ class LibraryViewTestCase(TestCase):
         response = self.c.get('/images/?page_album=3')
         self.assertEqual(len(response.context['all_albums']), 3)
 
+    def test_pagination_album_photo_pages(self):
+        """test that moving album pages leaves photo page alone"""
+        self.albums = AlbumFactory.create_batch(5, user=self.user)
+        response = self.c.get('/images/?page_album=2')
+        self.assertIn(b"?page_album=1&page_photo=1", response.content)
+
+    def test_pagination_photo_album_pages(self):
+        """test that moving photo pages leaves album page alone"""
+        self.albums = AlbumFactory.create_batch(5, user=self.user)
+        response = self.c.get('/images/?page_photo=2')
+        self.assertIn(b"?page_photo=1&page_album=1", response.content)
+
 
 class AlbumViewTestCase(TestCase):
     """verify that the album view behaves as we expect"""
