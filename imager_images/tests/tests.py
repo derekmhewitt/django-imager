@@ -218,17 +218,31 @@ class TagViewTestCase(TestCase):
         self.c.force_login(user=self.user)
         self.today = datetime.date.today()
         self.album = AlbumFactory(user=self.user)
-        self.album.photos.add(*PhotoFactory.create_batch(7,
-                              user=self.user))
+        # self.album.photos.add(*PhotoFactory.create_batch(7,
+        #                       user=self.user))
 
     def tearDown(self):
         """Tear down setUp'd things"""
         del self.album
         del self.user
         del self.c
+        del self.photo
 
-    def test_tags_are_in_response(self):
-        """verify that tags are returned to the view"""
+    def test_tags_are_in_response_library_view(self):
+        """verify that tags are returned to the library view"""
+        self.photo = PhotoFactory(user=self.user, tags="Zebra")
+        response = self.c.get(reverse('my_library'))
+        self.assertIn(b"Zebra", response.content)
+
+    def test_tags_are_in_response_tag_view(self):
+        """verify that tags are returned to the tag view"""
         self.photo = PhotoFactory(user=self.user, tags="Burrito")
         response = self.c.get(reverse('tag_view', kwargs={'tag': "Burrito"}))
         self.assertIn(b"Burrito", response.content)
+
+    def test_tags_are_in_response_photo_view(self):
+        """verify that tags are returned to the photo view"""
+        self.photo = PhotoFactory(user=self.user, tags="Taco")
+        response = self.c.get(reverse('photo_view', args=[self.photo.pk]))
+        import pdb;pdb.set_trace()
+        self.assertIn(b"Taco", response.content)

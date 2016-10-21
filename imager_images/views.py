@@ -122,5 +122,4 @@ class TagView(TagMixin, ListView):
             user=self.request.user).filter(tags__name=tag)
         context['tag'] = tag
         context['photos'] = photos
-        # import pdb;pdb.set_trace()
         return context
