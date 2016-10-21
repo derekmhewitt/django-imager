@@ -1,6 +1,6 @@
 {% extends "imagersite/layout.html" %}
 {% block content %}
-    <p>This is the tag view for {{ tag.name }}</p>
+    <p>This is the tag view for {{ tag }}</p>
     <div class="row">
     {% for photo in photos %}
         {% include 'imager_images/single_photo.html' %}

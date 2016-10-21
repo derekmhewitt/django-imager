@@ -4,7 +4,7 @@
             <p>Title: {{ photo.title }}</p>
         {% endif %}
         <a href="{% url 'photo_view' photo.pk %}"><img src="{{ photo.file.url }}" height="150"></img></a>
-        {% if photo.tags %}
+        {% if photo.tags.all %}
             <p>Tags:
             {% for tag in photo.tags.all %}
                 <a href="{% url 'tag_view' tag.name %}"> {{ tag.name }} </a>

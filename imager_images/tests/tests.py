@@ -204,3 +204,31 @@ class AlbumViewTestCase(TestCase):
         last page for album photos"""
         response = self.c.get('/images/album/{}/?page_photo=3'.format(self.album.pk))
         self.assertEqual(len(response.context['album_photos']), 3)
+
+
+class TagViewTestCase(TestCase):
+    """verify that the tag view does what we expect"""
+
+    def setUp(self):
+        """Set up a fake things for testing."""
+        self.user = User(username='test_user')
+        self.user.set_password('test_password')
+        self.user.save()
+        self.c = Client()
+        self.c.force_login(user=self.user)
+        self.today = datetime.date.today()
+        self.album = AlbumFactory(user=self.user)
+        self.album.photos.add(*PhotoFactory.create_batch(7,
+                              user=self.user))
+
+    def tearDown(self):
+        """Tear down setUp'd things"""
+        del self.album
+        del self.user
+        del self.c
+
+    def test_tags_are_in_response(self):
+        """verify that tags are returned to the view"""
+        self.photo = PhotoFactory(user=self.user, tags="Burrito")
+        response = self.c.get(reverse('tag_view', kwargs={'tag': "Burrito"}))
+        self.assertIn(b"Burrito", response.content)

@@ -139,7 +139,8 @@ MEDIA_URL = '/media/'
 ACCOUNT_ACTIVATION_DAYS = 7  # django-registration # of days to register
 LOGIN_REDIRECT_URL = 'profile_view'
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 4
+    'PAGE_SIZE': 4,
+    'DEFAULT_PERMISSION_CLASSES': [],
 }
 
 # django taggit settings
