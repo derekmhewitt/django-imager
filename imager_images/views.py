@@ -1,9 +1,11 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
 from imager_images.models import Photo, Album
+from taggit.models import Tag
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.list import ListView
 
 PHOTO_FORM_FIELDS = [
     'file',
@@ -21,6 +23,7 @@ PHOTO_FORM_FIELDS = [
     'published',
     'is_public',
     'albums',
+    'tags',
 ]
 ALBUM_FORM_FIELDS = [
     'title',
@@ -98,3 +101,25 @@ class AlbumCreate(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(AlbumCreate, self).form_valid(form)
+
+
+class TagMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(TagMixin, self).get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
+
+class TagView(TagMixin, ListView):
+    template_name = "imager_images/tag.html"
+    model = Photo
+    context_object_name = "photos"
+
+    def get_context_data(self, **kwargs):
+        context = super(ListView, self).get_context_data(**kwargs)
+        tag = self.kwargs.get('tag')
+        photos = Photo.objects.filter(
+            user=self.request.user).filter(tags__name=tag)
+        context['tag'] = tag
+        context['photos'] = photos
+        return context
