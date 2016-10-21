@@ -1,7 +1,9 @@
 from django.views.generic.base import TemplateView
+from django.views.generic import DetailView
 from imager_images.models import Photo, Album
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 PHOTO_FORM_FIELDS = [
     'file',
@@ -34,8 +36,45 @@ class LibraryView(TemplateView):
     def get_context_data(self, **kwargs):
         current_user = self.request.user
         context = super(LibraryView, self).get_context_data(**kwargs)
-        context['all_albums'] = Album.objects.all().filter(user=current_user)
-        context['all_photos'] = Photo.objects.all().filter(user=current_user)
+        album_paginator = Paginator(
+            Album.objects.all().filter(user=current_user), 4)
+        photo_paginator = Paginator(
+            Photo.objects.all().filter(user=current_user), 4)
+        page_album = self.request.GET.get('page_album')
+        page_photo = self.request.GET.get('page_photo')
+        try:
+            all_albums = album_paginator.page(page_album)
+        except PageNotAnInteger:
+            all_albums = album_paginator.page(1)
+        except EmptyPage:
+            all_albums = album_paginator.page(album_paginator.num_pages)
+        try:
+            all_photos = photo_paginator.page(page_photo)
+        except PageNotAnInteger:
+            all_photos = photo_paginator.page(1)
+        except EmptyPage:
+            all_photos = photo_paginator.page(photo_paginator.num_pages)
+        context['all_albums'] = all_albums
+        context['all_photos'] = all_photos
+        return context
+
+
+class AlbumView(DetailView):
+    template_name = 'imager_images/album_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        album = self.object
+        photo_paginator = Paginator(album.photos.all(), 4)
+        page_photo = self.request.GET.get('page_photo')
+        try:
+            album_photos = photo_paginator.page(page_photo)
+        except PageNotAnInteger:
+            album_photos = photo_paginator.page(1)
+        except EmptyPage:
+            album_photos = photo_paginator.page(photo_paginator.num_pages)
+        context['album'] = album
+        context['album_photos'] = album_photos
         return context
 
 

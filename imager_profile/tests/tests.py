@@ -117,5 +117,5 @@ class TestPhotographerProfileManager(TestCase):
         self.user = User(username="inactive_user")
         self.user.is_active = False
         self.user.save()
-        query = PhotographerProfileManager.get_queryset(self)
+        query = Photographer.active.all()
         self.assertTrue(len(query), 1)
