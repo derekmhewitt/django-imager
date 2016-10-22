@@ -8,6 +8,7 @@ from .factory import PhotoFactory, AlbumFactory
 from imager_profile.tests.factory import UserFactory
 import datetime
 import tempfile
+from taggit.models import Tag
 
 TEST_MEDIA_ROOT = tempfile.mkdtemp()
 
@@ -136,7 +137,6 @@ class LibraryViewTestCase(TestCase):
 
     def test_pagination_album_page_one(self):
         """test pagination on the first album library page"""
-        # import pdb;pdb.set_trace()
         self.albums = AlbumFactory.create_batch(6, user=self.user)
         response = self.c.get(reverse('my_library'))
         self.assertEqual(len(response.context['all_albums']), 4)
@@ -191,7 +191,6 @@ class AlbumViewTestCase(TestCase):
     def test_pagination_album_view_page_one(self):
         """test pagination on the single album page"""
         response = self.c.get('/images/album/{}/'.format(self.album.pk))
-        # import pdb; pdb.set_trace()
         self.assertEqual(len(response.context['album_photos']), 4)
 
     def test_pagination_album_view_page_two(self):
@@ -218,8 +217,6 @@ class TagViewTestCase(TestCase):
         self.c.force_login(user=self.user)
         self.today = datetime.date.today()
         self.album = AlbumFactory(user=self.user)
-        # self.album.photos.add(*PhotoFactory.create_batch(7,
-        #                       user=self.user))
 
     def tearDown(self):
         """Tear down setUp'd things"""
@@ -230,19 +227,29 @@ class TagViewTestCase(TestCase):
 
     def test_tags_are_in_response_library_view(self):
         """verify that tags are returned to the library view"""
-        self.photo = PhotoFactory(user=self.user, tags="Zebra")
+        self.photo = PhotoFactory(user=self.user)
+        self.photo.tags.add("Zebra")
         response = self.c.get(reverse('my_library'))
         self.assertIn(b"Zebra", response.content)
 
     def test_tags_are_in_response_tag_view(self):
         """verify that tags are returned to the tag view"""
-        self.photo = PhotoFactory(user=self.user, tags="Burrito")
+        self.photo = PhotoFactory(user=self.user)
+        self.photo.tags.add("Burrito")
         response = self.c.get(reverse('tag_view', kwargs={'tag': "Burrito"}))
         self.assertIn(b"Burrito", response.content)
 
     def test_tags_are_in_response_photo_view(self):
         """verify that tags are returned to the photo view"""
-        self.photo = PhotoFactory(user=self.user, tags="Taco")
+        self.photo = PhotoFactory(user=self.user)
+        self.photo.tags.add("Taco")
         response = self.c.get(reverse('photo_view', args=[self.photo.pk]))
-        import pdb;pdb.set_trace()
         self.assertIn(b"Taco", response.content)
+
+    def test_multiple_tags_assign_correctly(self):
+        """verify that multiple tags assign and can be queried properly"""
+        self.photo = PhotoFactory(user=self.user)
+        self.photo.tags.add("Taco")
+        self.photo.tags.add("Burrito")
+        self.photo.tags.add("Zebra")
+        self.assertEqual(len(self.photo.tags.all()), 3)

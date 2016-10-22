@@ -19,7 +19,6 @@ class PhotoFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     file = factory.django.ImageField(color="blue")
     title = factory.lazy_attribute(lambda n: fake.sentence(nb_words=5))
-    tags = factory.lazy_attribute(lambda n: fake.sentence(nb_words=1))
 
 
 class AlbumFactory(factory.django.DjangoModelFactory):

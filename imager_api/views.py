@@ -8,15 +8,15 @@ from .permissions import IsOwnerOrReadOnly
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """Automatically provides 'list' and 'detail' views."""
-    permissions_classes = (IsAuthenticated,
-                           IsOwnerOrReadOnly,)
+    permission_classes = (IsAuthenticated,
+                          IsOwnerOrReadOnly,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class PhotoViewSet(viewsets.ModelViewSet):
-    permissions_classes = (IsAuthenticated,
-                           IsOwnerOrReadOnly,)
+    permission_classes = (IsAuthenticated,
+                          IsOwnerOrReadOnly,)
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
 
@@ -25,7 +25,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
 
 
 class AlbumViewSet(viewsets.ModelViewSet):
-    permissions_classes = (IsAuthenticated,
-                           IsOwnerOrReadOnly,)
+    permission_classes = (IsAuthenticated,
+                          IsOwnerOrReadOnly,)
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
